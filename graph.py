@@ -22,7 +22,7 @@ class Graph (object): # this represent the graph
             return False 
 
 
-    def agregarBorde (self ,u , v):  #this is 
+    def addedge (self ,u , v):  #this is 
         if u in self.vertices and v in self.vertices:
             self.vertices[u].addneighbor(v)
             self.vertices[v].addneighbor(u)
@@ -53,6 +53,6 @@ if __name__ == '__main__':
     bordes = ['53','54','31','35','41','42','45','12','13','14','21','24']
 
     for borde in bordes:
-        g.agregarBorde(int(borde[:1]), int (borde[1:]))
+        g.addedge(int(borde[:1]), int (borde[1:]))
        
     g.printGraph()
