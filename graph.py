@@ -3,12 +3,15 @@ class Vertex (object):    # this class is used tu represent a vertex an her neig
 
     def __init__(self,n):
         self.name = n   # vertex 
-        self.neighbor = list() # list of vertex that are its neighbors
+        self.neighbor = [] # list of vertex that are its neighbors
 
     def addneighbor (self , v ):  # this is to add neighbors to the list
         if v not in self.neighbor:  
             self.neighbor.append(v)
             self.neighbor.sort() 
+            return True 
+        else: 
+            return False    
 
 
 class Graph (object): # this represent the graph 
@@ -22,11 +25,12 @@ class Graph (object): # this represent the graph
             return False 
 
 
-    def addedge (self ,u , v):  #this is 
+    def addedge (self ,u , v):  #this is to add the neighbor
         if u in self.vertices and v in self.vertices:
-            self.vertices[u].addneighbor(v)
-            self.vertices[v].addneighbor(u)
-            return True
+            if self.vertices[u].addneighbor(v) and self.vertices[v].addneighbor(u):
+                return True
+            else: 
+                return False
         else:
             return False 
 
@@ -40,12 +44,6 @@ class Graph (object): # this represent the graph
 
 if __name__ == '__main__':
     g = Graph() 
-
-    #cinco = Vertex(5) 
-    #tres = Vertex(3)
-    #cuatro = Vertex(4)
-    #uno = Vertex(1)
-    #dos = Vertex(2)
 
     for i in range (1,6):
         g.addvertex(Vertex(i))
