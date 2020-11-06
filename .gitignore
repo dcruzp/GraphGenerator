@@ -1,2 +1,6 @@
 .vscode/
+graph/
 *.pyc
+*.png
+*.txt
+test.py
