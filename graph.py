@@ -1,56 +1,48 @@
 
-class Vertex (object):    # this class is used tu represent a vertex an her neighbors
+class Vertex (object):    # Represents a vertex and its neighbors
+    
+    def __init__(self, n):
+        self.name = n
+        self.neighbors = []  # list of neighbor vertices
 
-    def __init__(self,n):
-        self.name = n   # vertex 
-        self.neighbor = [] # list of vertex that are its neighbors
-
-    def addneighbor (self , v ):  # this is to add neighbors to the list
-        if v not in self.neighbor:  
-            self.neighbor.append(v)
-            self.neighbor.sort() 
-            return True 
-        else: 
-            return False    
+    # this adds neighbors to our vertex
+    def add_neighbor(self, v):
+        if v not in self.neighbors:
+            self.neighbors.append(v)
+            self.neighbors.sort()
+            return True
+        return False
 
 
-class Graph (object): # this represent the graph 
-    vertices = {}  
+class Graph (object):
+    vertices = {}
 
-    def addvertex (self , vertex ):
-        if isinstance(vertex,Vertex):
+    def add_vertex(self, vertex):
+        if isinstance(vertex, Vertex):
             self.vertices[vertex.name] = vertex
-            return True 
-        else:
-            return False 
+            return True
+        return False
 
-
-    def addedge (self ,u , v):  #this is to add the neighbor
+    def add_edge(self, u, v):  # adds an edge/connection between vertices
         if u in self.vertices and v in self.vertices:
-            if self.vertices[u].addneighbor(v) and self.vertices[v].addneighbor(u):
-                return True
-            else: 
-                return False
-        else:
-            return False 
+            return self.vertices[u].add_neighbor(v) and self.vertices[v].add_neighbor(u)
+        return False
 
-
-
-    def printGraph (self):  # this should be printed the graph 
+    def print_graph(self):
         for key in sorted(list(self.vertices.keys())):
-            print( str(key) + ' ' + str( self.vertices[key].neighbor ) )
-           
+            print(str(key) + ' ' + str(self.vertices[key].neighbors))
 
 
 if __name__ == '__main__':
-    g = Graph() 
+    g = Graph()
 
-    for i in range (1,6):
-        g.addvertex(Vertex(i))
+    for i in range(1, 6):
+        g.add_vertex(Vertex(i))
 
-    bordes = ['53','54','31','35','41','42','45','12','13','14','21','24']
+    borders = ['53', '54', '31', '35', '41',
+              '42', '45', '12', '13', '14', '21', '24']
 
-    for borde in bordes:
-        g.addedge(int(borde[:1]), int (borde[1:]))
-       
-    g.printGraph()
+    for b in borders:
+        g.add_edge(int(b[:1]), int(b[1:]))
+
+    g.print_graph()
