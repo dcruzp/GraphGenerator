@@ -1,12 +1,14 @@
 
-from os import close
+import os
+import sys 
 import graph
 import random 
+
 
 def checkiscorrectGraph (n,m):
     return m <= (n*(n-1))/2
 
-def generate (n , m ):
+def generateGraph (n , m ):
     
     g = graph.Graph() 
 
@@ -18,49 +20,63 @@ def generate (n , m ):
         g.addvertex(graph.Vertex(i))
 
     count = 0 
-
     while count < m:
         r = random.sample(listvert , 2)
         
         if g.addedge(r[0] , r[1]):
             count = count + 1 
-            print(r)
+            #print(r)
         else:
-            print(str (r) + " could not be added because it was already in the graph ")
+            #print(str (r) + " could not be added because it was already in the graph ")
+            continue 
     
-    return g 
+    return g
+
+def generateRandomGraph (limitofVertex):
+    n = random.randint(1, limitofVertex)
+    m = random.randint(0, (int)(n*(n-1)/2))
+    g = generateGraph(n,m)
+    print( str (n) + ' ' + str (m))
+    for key in sorted(list(g.vertices.keys())):
+            #print(str(key) + ' ' + str( g.vertices[key].neighbor ) )
+            for neighbor in g.vertices[key].neighbor:
+                print ( str(key) + ' '  + str (neighbor))
+    #g.printGraph()
+    return g
 
 
-#g = generate(5,3) 
-
-#g.printGraph()
-
-import os 
-
-def generateFolderofGraph (name , ngraph):
+def generateFolderofRandomGraph (folder , ngraph , limitOfVertex , namefile = 'graph', ext = 'txt'):
     
-    path = os.path.join(os.getcwd(), name)
+    path = os.path.join(os.getcwd(), folder)
     if os.path.exists(path):
         print (path + ' already exist')
+        return None 
     else :
         os.makedirs(path)
 
-    file , ext  = "graph" , "txt"
-
     i = 1 
     while (i <= ngraph ):
-        path = os.path.join (path , file + str (i) + '.'  + ext)
-        print (path) 
+        n = random.randint(2,limitOfVertex)
+        m = random.randint(1, (int)(n*(n-1)/2))
+        g = generateGraph(n,m)
+        path = os.path.join (path , namefile + str (i) + '.'  + ext)
         baconFile = open (path , 'w')
+        baconFile.write (str(n) + ' ' + str (m) + '\n') 
         baconFile.close() 
+
+        baconFile = open (path , 'a')
+        for key in sorted(list(g.vertices.keys())):
+            for neighbor in g.vertices[key].neighbor:
+                baconFile.write(str(key) + ' '+ str (neighbor) + '\n')
+        baconFile.close()
         path = os.path.dirname (path) 
         i = i +1 
+ 
 
-    
-    
-
-foldername = "graph"
-generateFolderofGraph (foldername , 100 ) 
+#foldername = "graph"
+#numberofgraph = 100
+#numberofVertex = 100 
+#generateFolderofRandomGraph (foldername , numberofgraph , numberofVertex ) 
 
 
 def clearFolder (folder):
@@ -73,16 +89,26 @@ def clearFolder (folder):
                     fullpath = os.path.join(folderName , fileName)
                     print('deleted :' +  fullpath)
                     os.unlink(fullpath)
-                    
-            #print ("ES AQUI _______________________________________________________")
 
-        #for subFolder in subFolders : 
-        #    print ('SUBFOLDER OF : ' + folderName + ' : ' + subFolder)
 
-        #for fileName in fileNames: 
-        #    print ('FILE INSIDE ' + folderName + ': ' + fileName)
-        
-        #print (' ') 
+if __name__ == '__main__':
 
-clearFolder ('graph') 
-       
+    foldername = 'graph' 
+    numberofGraph = 10
+    limitofVertex = 20
+    namefile = 'graph' 
+    ext = 'txt'
+
+    argv = [foldername , numberofGraph , limitofVertex , namefile , ext]
+
+    i =0 
+    for item in sys.argv[1:] :
+        print (item)
+
+    #print (foldername) 
+    #print (numberofGraph)
+    #print (limitofVertex)
+    #print (namefile)
+    #print (ext) 
+
+

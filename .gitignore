@@ -3,4 +3,4 @@ graph/
 *.pyc
 *.png
 *.txt
-test.py
+*test*.py
