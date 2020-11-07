@@ -4,7 +4,7 @@
 # 
 
 
-import os
+import os,argparse
 import sys
 import graph
 import random
@@ -100,17 +100,30 @@ def clearFolder(folder):
 
 if __name__ == '__main__':
 
-    foldername = 'graph'
-    numberofGraph = 10
-    limitofVertex = 20
-    namefile = 'graph'
-    ext = 'txt'
+    # foldername = 'graph'
+    # numberofGraph = 10
+    # limitofVertex = 20
+    # namefile = 'graph'
+    # ext = 'txt'
 
-    argv = [foldername, numberofGraph, limitofVertex, namefile, ext]
+    # argv = [foldername, numberofGraph, limitofVertex, namefile, ext]
+    parser = argparse.ArgumentParser(description='Hydra Graph Generator')
+    # add arguments
+    parser.add_argument('--foldername', dest='folder_name', required=True)
+    parser.add_argument('--numberofGraph', dest='number_of_Graph', required=True)
+    parser.add_argument('--limitofVertex', dest='limit_of_Vertex', required=True)
+    parser.add_argument('--namefile', dest='name_file', required=False)
+    parser.add_argument('--ext', dest='_ext', required=False)
 
-    i = 0
-    for item in sys.argv[1:]:
-        print(item)
+    args = parser.parse_args()
+    foldername=args.folder_name
+    numberofgraph=args.number_of_Graph
+    limitofVertex=args.limit_of_Vertex
+    namefile=args.name_file
+    ext=args._ext
+    # i = 0
+    # for item in sys.argv[1:]:
+    #     print(item)
 
     #print (foldername)
     #print (numberofGraph)
