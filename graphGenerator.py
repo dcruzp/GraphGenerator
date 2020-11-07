@@ -1,3 +1,8 @@
+# 
+# aqui hay varias funciones para crear un grafo pero existe una funcion que le pasas un conjunto de parametros y esta te crea una carpeta con una secuencia de grafos 
+# 
+# 
+
 
 import os
 import sys

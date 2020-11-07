@@ -1,3 +1,6 @@
+# 
+# File defines Vertex and Graph Objects
+# 
 
 class Vertex (object):    # Represents a vertex and its neighbors
     
